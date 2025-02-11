@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+    app:
+        build: .
+        ports:
+            - "9000:9000"
+        volumes:
+            - .:/var/www
+        depends_on:
+            - db
+        environment:
+            DB_HOST: db
+            DB_DATABASE: link-app
+            DB_USERNAME: admin1234
+            DB_PASSWORD: admin2134
+
+    db:
+        image: mysql:8.0
+        environment:
+            MYSQL_ROOT_PASSWORD: admin1234
+            MYSQL_DATABASE: link-app
+        volumes:
+            - db_data:/var/lib/mysql
+
+volumes:
+    db_data:
